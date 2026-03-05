@@ -1,0 +1,21 @@
+@startuml Context
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+Person(engineer, "Operator/Engineer", "Controls devices and views events through the UI/API")
+System_Boundary(platform_boundary, "IoT Monitoring Platform") {
+    System(platform, "IoT Microservice Platform", "Microservice platform for monitoring, storing, analyzing and controlling IoT data")
+}
+
+System_Ext(devices, "IoT devices", "Send telemetry to Kafka and receive commands over gRPC")
+System_Ext(keycloak, "Keycloak", "Authorization platform (OIDC/OAuth2)")
+System_Ext(grafana_alloy, "Grafana Alloy", "Metrics and logs collection agent")
+System_Ext(grafana, "Grafana", "Monitoring and visualization system")
+
+Rel(engineer, platform, "Controls through the UI/API", "Dashboard")
+Rel(devices, platform, "Send telemetry", "KWI (AVRO)")
+Rel(platform, devices, "Sends commands", "gRPC")
+Rel(platform, keycloak, "Authentication/Authorization", "OIDC")
+Rel(platform, grafana_alloy, "Collectы metrics and logs from all services", "Prometheus + Loki")
+Rel(grafana_alloy, grafana, "Visualizes metrics and logs")
+
+@enduml
