@@ -18,6 +18,7 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-kafka")
     implementation("org.springframework.boot:spring-boot-starter-flyway")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("io.confluent:kafka-avro-serializer:8.1.1")
     implementation("io.confluent:kafka-schema-registry-client:8.1.1")
     implementation("org.apache.avro:avro:1.12.1")
@@ -26,6 +27,7 @@ dependencies {
     compileOnly("org.projectlombok:lombok:1.18.44")
     annotationProcessor("org.projectlombok:lombok:1.18.44")
 
+    testImplementation("org.springframework.boot:spring-boot-starter-data-redis-test")
     testCompileOnly("org.projectlombok:lombok:1.18.44")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.44")
     testImplementation("org.springframework.boot:spring-boot-starter-flyway-test")

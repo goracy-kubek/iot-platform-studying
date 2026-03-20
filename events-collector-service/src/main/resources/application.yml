@@ -1,4 +1,10 @@
 spring:
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: ${REDIS_PASSWORD:red_pass}
+
   kafka:
     bootstrap-servers: localhost:9092
     properties.schema.registry.url: http://localhost:8081
@@ -16,3 +22,5 @@ spring:
     username: ${CLICKHOUSE_USER:demo_user}
     password: ${CLICKHOUSE_PASSWORD:demo_pass}
     driver-class-name: com.clickhouse.jdbc.ClickHouseDriver
+
+dedup.ttl: 10m

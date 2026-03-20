@@ -17,8 +17,7 @@ public class DeviceEventListener {
 
     @KafkaListener(topics = "device-events")
     public void listenDeviceEvents(@Payload DeviceEvent deviceEvent, Acknowledgment ack) {
-        int rowsAffected = deviceEventsService.insert(deviceEvent);
-        log.debug("Insert device event. Rows affected: {}", rowsAffected);
+        deviceEventsService.insert(deviceEvent);
 
         ack.acknowledge();
     }
