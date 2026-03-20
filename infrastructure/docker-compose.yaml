@@ -33,6 +33,7 @@ services:
   kafka:
     image: apache/kafka:latest
     container_name: kafka
+    restart: unless-stopped
     ports:
       - 9092:9092
     environment:
@@ -57,6 +58,8 @@ services:
       
   schema-registry:
     image: confluentinc/cp-schema-registry:latest
+    container_name: schema-registry
+    restart: unless-stopped
     ports:
       - 8081:8081
     depends_on:
@@ -77,9 +80,36 @@ services:
       retries: 5
       start_period: 20s
 
+  clickhouse:
+    image: clickhouse/clickhouse-server:head-alpine
+    container_name: clickhouse
+    restart: unless-stopped
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+    environment:
+      CLICKHOUSE_USER: ${CLICKHOUSE_USER}
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD}
+    healthcheck:
+      test: [
+        "CMD-SHELL", 
+        "clickhouse-client 
+          --user=${CLICKHOUSE_USER}
+          --password=${CLICKHOUSE_PASSWORD}
+          --query='SELECT 1' || exit 1"
+      ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
 volumes:
   postgres_data:
     name: postgres_data_volume
+  clickhouse_data:
+    name: clickhouse_data_volume
 
 networks:
   app-network:

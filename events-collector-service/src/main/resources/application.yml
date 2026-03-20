@@ -5,7 +5,14 @@ spring:
     producer:
       value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
     consumer:
+      group-id: device-events-group
       value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
       properties.specific.avro.reader: true
     listener:
       ack-mode: manual
+
+  datasource:
+    url: jdbc:clickhouse://localhost:8123/${CLICKHOUSE_DATABASE:default}
+    username: ${CLICKHOUSE_USER:demo_user}
+    password: ${CLICKHOUSE_PASSWORD:demo_pass}
+    driver-class-name: com.clickhouse.jdbc.ClickHouseDriver
