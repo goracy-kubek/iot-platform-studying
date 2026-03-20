@@ -19,6 +19,10 @@ public class DeviceEventRedisRepository {
         this.ttl = ttl;
     }
 
+    /**
+     * Method for deduplication event by deviceId
+     * @param deviceId for checking
+     */
     public boolean isDuplicate(String deviceId) {
         return Boolean.FALSE.equals(
                 redis

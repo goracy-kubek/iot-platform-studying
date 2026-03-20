@@ -23,4 +23,4 @@ spring:
     password: ${CLICKHOUSE_PASSWORD:demo_pass}
     driver-class-name: com.clickhouse.jdbc.ClickHouseDriver
 
-dedup.ttl: 10m
+dedup.ttl: 1m
