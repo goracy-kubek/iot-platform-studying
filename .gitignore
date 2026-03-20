@@ -1,3 +1,4 @@
 .idea/
 /infrastructure/.env
 .vscode/
+.DS_Store
