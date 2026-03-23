@@ -6,7 +6,6 @@ spring:
       password: ${REDIS_PASSWORD:red_pass}
 
   kafka:
-    bootstrap-servers: localhost:9092
     properties.schema.registry.url: http://localhost:8081
     producer:
       value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
@@ -24,3 +23,10 @@ spring:
     driver-class-name: com.clickhouse.jdbc.ClickHouseDriver
 
 dedup.ttl: 1m
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, metrics, prometheus
+      base-path: /actuator
